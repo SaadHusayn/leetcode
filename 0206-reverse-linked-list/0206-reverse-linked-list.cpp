@@ -10,17 +10,23 @@
  */
 class Solution {
 public:
+    void reverseListRecursion(ListNode *&head, ListNode *curr, ListNode *prev){
+        if(curr == nullptr){
+            head = prev;
+            return;
+        }
+        
+        auto forward =  curr->next;
+        curr->next = prev;
+        reverseListRecursion(head, forward, curr);
+    }
+    
     ListNode* reverseList(ListNode* head) {
         ListNode *prev = 0;
         auto curr = head;
         
-        while(curr!=nullptr){
-            auto forward = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = forward;
-        }
+        reverseListRecursion(head, curr, prev);
         
-        return prev;
+        return head;
     }
 };
