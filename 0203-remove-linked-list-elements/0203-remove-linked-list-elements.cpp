@@ -10,22 +10,16 @@
  */
 class Solution {
 public:
-    void helper(ListNode* head, int val){
-        if(head == nullptr) return;
-        if(head->val!=val && head->next==nullptr) return;
-        
-        if(head->next->val == val){
-            head->next = head->next->next;
-            helper(head, val);
-        }else{
-            helper(head->next, val);
-        }
-        
-    }
+    
     
     ListNode* removeElements(ListNode* head, int val) {
-        while(head!=nullptr && head->val == val) head=head->next;
-        helper(head, val);
+        if(head == nullptr) return nullptr;
+        
+        auto rightSide= removeElements(head->next, val);
+        if(head->val == val){
+            return rightSide;
+        }
+        head->next = rightSide;
         return head;
     }
 };
