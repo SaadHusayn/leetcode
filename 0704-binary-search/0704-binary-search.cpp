@@ -1,15 +1,17 @@
 class Solution {
 public:
     int binarySearch(vector<int>& nums, int start, int end, int target){
-        if(start > end) return -1;
+        if(target == nums[start]) return start;
+        if(target == nums[end]) return end;
+        if(start > end || target<nums[start] || target>nums[end]) return -1;
         
-        auto mid = start + (end-start)/2;
+        auto pos =  start + (end - start)*(target - nums[start])/(nums[end] - nums[start]);
         
-        if(nums[mid] == target) return mid;
+        if(nums[pos] == target) return pos;
         
-        else if(nums[mid] > target) return binarySearch(nums, start, mid - 1, target);
+        else if(nums[pos] > target) return binarySearch(nums, start, pos - 1, target);
         
-        else return binarySearch(nums, mid+1, end, target);
+        else return binarySearch(nums, pos+1, end, target);
     
     
     }
