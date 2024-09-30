@@ -1,15 +1,20 @@
 class Solution {
 public:
-    void sortArray(vector<int>& nums, int size){
+    void sortArray(vector<int>& nums, int start, int end){
+        auto size = end - start;
         if(size == 0 || size == 1) return;
         
-        for(int i=0;i<size-1;i++){
-            if(nums[i+1]<nums[i]) swap(nums[i+1], nums[i]);
+        int index = start;
+        for(int i=start+1;i<end;i++){
+            if(nums[i]<nums[index]) index = i;
         }
-        sortArray(nums, --size);
+        
+        swap(nums[start], nums[index]);
+        
+        sortArray(nums, ++start, end);
     }
     
     void sortColors(vector<int>& nums) {
-        sortArray(nums, nums.size());
+        sortArray(nums, 0, nums.size());
     }
 };
